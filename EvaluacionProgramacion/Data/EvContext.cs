@@ -11,7 +11,7 @@ namespace EvaluacionProgramacion.Services.Users.Data
         }
 
         /* DbSet indica el modelo que se va a mapear (reflejar) a la base de datos */
-        public DbSet<Rol> Roles { get; set; }
+        public DbSet<Rol> Rol { get; set; }
 
         public DbSet<Usuario> Usuarios { get; set; }
 
