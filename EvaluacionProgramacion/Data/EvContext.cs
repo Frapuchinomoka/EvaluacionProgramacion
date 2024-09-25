@@ -11,12 +11,15 @@ namespace EvaluacionProgramacion.Services.Users.Data
         }
 
         /* DbSet indica el modelo que se va a mapear (reflejar) a la base de datos */
-        public DbSet<Rol> Rol { get; set; }
+        public DbSet<Rol> Roles { get; set; }
 
         public DbSet<Usuario> Usuarios { get; set; }
 
         public DbSet<Tarea> Tareas { get; set; }
 
+        public DbSet<Proyecto> Proyectos { get; set; }
+
+        public DbSet<Herramienta> Herramientas { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
