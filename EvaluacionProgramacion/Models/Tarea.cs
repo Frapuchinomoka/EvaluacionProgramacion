@@ -10,10 +10,10 @@ namespace EvaluacionProgramacion.Models
         public int Horas { get; set; }
         public string Area { get; set; }
 
-        [ForeignKey("Proyectos")]
+        [ForeignKey("Proyecto")]
         public int ProyectoId { get; set; }
 
-
+        [ForeignKey("Usuario")]
         public int UsuarioId { get; set; }
 
 
