@@ -10,15 +10,10 @@ namespace EvaluacionProgramacion.Services
 
         public RolesService(EvContext context)
         {
-           _context = context; 
+            _context = context; 
         }
 
-        public async Task<List<Rol>> ListaRoles()
-        {
-            List<Rol> roles = await _context.Roles.ToListAsync();
-            return roles;
-        }
-
+        // Método para obtener un rol específico por ID
         public async Task<Rol> ObtenerRoles(int id)
         {
             Rol rol = await _context.Roles.FindAsync(id);

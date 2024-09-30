@@ -1,6 +1,8 @@
-﻿namespace EvaluacionProgramacion.Responses
+﻿using EvaluacionProgramacion.Models;
+
+namespace EvaluacionProgramacion.Responses
 {
-    public class RolesResponse
+    public class RolesResponse : ResponseBase<Rol>
     {
     }
 }
