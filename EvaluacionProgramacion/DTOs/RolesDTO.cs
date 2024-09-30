@@ -2,5 +2,6 @@
 {
     public class RolesDTO
     {
+        public string Nombre { get; set; }
     }
 }
