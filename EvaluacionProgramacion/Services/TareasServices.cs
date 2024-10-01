@@ -75,7 +75,7 @@ namespace Practico2.Services
 
             if (tareaExistente == null)
             {
-                return false; // La tarea no existe
+                return false; 
             }
 
             // Verificar que el proyecto exista
@@ -115,7 +115,7 @@ namespace Practico2.Services
 
             if (tarea == null)
             {
-                return false; // La tarea no existe
+                return false; 
             }
 
             _dbContext.Tareas.Remove(tarea);
