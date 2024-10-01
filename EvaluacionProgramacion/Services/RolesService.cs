@@ -6,17 +6,17 @@ namespace EvaluacionProgramacion.Services
 {
     public class RolesService
     {
-        private readonly EvContext _context;
+        private readonly EvContext _dbcontext;
 
-        public RolesService(EvContext context)
+        public RolesService(EvContext dbcontext)
         {
-            _context = context; 
+            _dbcontext = dbcontext; 
         }
 
         // Método para obtener un rol específico por ID
         public async Task<Rol> ObtenerRoles(int id)
         {
-            Rol rol = await _context.Roles.FindAsync(id);
+            Rol rol = await _dbcontext.Roles.FindAsync(id);
             return rol;
         }
     }
