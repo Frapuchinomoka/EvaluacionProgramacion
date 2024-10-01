@@ -1,6 +1,6 @@
 ﻿using EvaluacionProgramacion.Models;
 using EvaluacionProgramacion.Services.Users.Data;
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
 
 namespace EvaluacionProgramacion.Services
 {
@@ -10,13 +10,12 @@ namespace EvaluacionProgramacion.Services
 
         public RolesService(EvContext dbcontext)
         {
-            _dbcontext = dbcontext; 
+            _dbcontext = dbcontext;
         }
 
-        // Método para obtener un rol específico por ID
         public async Task<Rol> ObtenerRoles(int id)
         {
-            Rol rol = await _dbcontext.Roles.FindAsync(id);
+            Rol rol = await _dbcontext.Roles.FindAsync(id); 
             return rol;
         }
     }
