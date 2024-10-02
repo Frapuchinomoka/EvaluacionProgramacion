@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace EvaluacionProgramacion.Services
 {
-    public class ProjectService
+    public class ProjectoService
     {
-        private readonly EvContext _dbContext;
+        private readonly EvContext DbContext;
 
-        public ProjectService(EvContext dbContext)
+        public ProjectoService(EvContext dbContext)
         {
-            _dbContext = dbContext;
+            DbContext = dbContext;
         }
 
         // Método para crear un nuevo proyecto
@@ -30,8 +30,8 @@ namespace EvaluacionProgramacion.Services
                 FechaCreacion = DateTime.UtcNow
             };
 
-            await _dbContext.Proyectos.AddAsync(newProject);
-            await _dbContext.SaveChangesAsync();
+            await DbContext.Proyectos.AddAsync(newProject);
+            await DbContext.SaveChangesAsync();
 
             return newProject;
         }
@@ -39,19 +39,19 @@ namespace EvaluacionProgramacion.Services
         // Método para obtener todos los proyectos
         public async Task<List<Proyecto>> GetAllProjectsAsync()
         {
-            return await _dbContext.Proyectos.ToListAsync();
+            return await DbContext.Proyectos.ToListAsync();
         }
 
         // Método para obtener un proyecto por ID
         public async Task<Proyecto> GetProjectByIdAsync(int projectId)
         {
-            return await _dbContext.Proyectos.FirstOrDefaultAsync(p => p.Id == projectId);
+            return await DbContext.Proyectos.FirstOrDefaultAsync(p => p.Id == projectId);
         }
 
         // Método para actualizar un proyecto existente
         public async Task<bool> UpdateProjectAsync(int projectId, ProyectoDTO projectDTO)
         {
-            var existingProject = await _dbContext.Proyectos.FindAsync(projectId);
+            var existingProject = await DbContext.Proyectos.FindAsync(projectId);
 
             if (existingProject == null)
             {
@@ -62,8 +62,8 @@ namespace EvaluacionProgramacion.Services
             existingProject.Descripcion = projectDTO.Descripcion;
             existingProject.HorasTotales = projectDTO.HorasTotales;
 
-            _dbContext.Proyectos.Update(existingProject);
-            await _dbContext.SaveChangesAsync();
+            DbContext.Proyectos.Update(existingProject);
+            await DbContext.SaveChangesAsync();
 
             return true;
         }
@@ -71,15 +71,15 @@ namespace EvaluacionProgramacion.Services
         // Método para eliminar un proyecto
         public async Task<bool> DeleteProjectAsync(int projectId)
         {
-            var projectToDelete = await _dbContext.Proyectos.FindAsync(projectId);
+            var projectToDelete = await DbContext.Proyectos.FindAsync(projectId);
 
             if (projectToDelete == null)
             {
                 return false; 
             }
 
-            _dbContext.Proyectos.Remove(projectToDelete);
-            await _dbContext.SaveChangesAsync();
+            DbContext.Proyectos.Remove(projectToDelete);
+            await DbContext.SaveChangesAsync();
 
             return true;
         }
@@ -87,7 +87,7 @@ namespace EvaluacionProgramacion.Services
         // Método para actualizar el estado de un proyecto
         public async Task<bool> UpdateProjectStatusAsync(int projectId, string newStatus)
         {
-            var project = await _dbContext.Proyectos.FindAsync(projectId);
+            var project = await DbContext.Proyectos.FindAsync(projectId);
 
             if (project == null || !IsValidStatus(newStatus))
             {
@@ -95,8 +95,8 @@ namespace EvaluacionProgramacion.Services
             }
 
             project.Estado = newStatus;
-            _dbContext.Proyectos.Update(project);
-            await _dbContext.SaveChangesAsync();
+            DbContext.Proyectos.Update(project);
+            await DbContext.SaveChangesAsync();
 
             return true;
         }
@@ -104,7 +104,7 @@ namespace EvaluacionProgramacion.Services
         // Método para agregar horas trabajadas a un proyecto
         public async Task<bool> AddWorkedHoursAsync(int projectId, int workedHours)
         {
-            var project = await _dbContext.Proyectos.FindAsync(projectId);
+            var project = await DbContext.Proyectos.FindAsync(projectId);
 
             if (project == null || workedHours < 0)
             {
@@ -119,8 +119,8 @@ namespace EvaluacionProgramacion.Services
                 project.HorasTrabajadas = project.HorasTotales; 
             }
 
-            _dbContext.Proyectos.Update(project);
-            await _dbContext.SaveChangesAsync();
+            DbContext.Proyectos.Update(project);
+            await DbContext.SaveChangesAsync();
 
             return true;
         }

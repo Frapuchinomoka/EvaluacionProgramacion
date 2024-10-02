@@ -11,18 +11,18 @@ namespace EvaluacionProgramacion.Services
 {
     public class UsuarioService
     {
-        private readonly EvContext _dbContext;
+        private readonly EvContext DbContext;
 
         public UsuarioService(EvContext dbContext) 
         {
-            _dbContext = dbContext;
+            DbContext = dbContext;
         }
 
         // Crear un nuevo usuario usando UsuarioDTO
         public async Task<Usuario> CrearUsuarioAsync(UsuarioDTO usuarioDTO)
         {
             // Verificar si el email ya existe
-            var usuarioExistente = await _dbContext.Usuarios
+            var usuarioExistente = await DbContext.Usuarios
                 .FirstOrDefaultAsync(u => u.Email == usuarioDTO.Email);
 
             if (usuarioExistente != null)
@@ -31,7 +31,7 @@ namespace EvaluacionProgramacion.Services
             }
 
             // Verificar que el RolId exista en la tabla Roles
-            var rolExistente = await _dbContext.Roles.FindAsync(usuarioDTO.RolId);
+            var rolExistente = await DbContext.Roles.FindAsync(usuarioDTO.RolId);
             if (rolExistente == null)
             {
                 throw new InvalidOperationException("\nEl RolId no existe.\n");
@@ -46,8 +46,8 @@ namespace EvaluacionProgramacion.Services
                 RolId = usuarioDTO.RolId
             };
 
-            _dbContext.Usuarios.Add(nuevoUsuario);
-            await _dbContext.SaveChangesAsync();
+            DbContext.Usuarios.Add(nuevoUsuario);
+            await DbContext.SaveChangesAsync();
 
             return nuevoUsuario;
         }
@@ -55,19 +55,19 @@ namespace EvaluacionProgramacion.Services
         // Obtener todos los usuarios
         public async Task<List<Usuario>> ObtenerUsuariosAsync()
         {
-            return await _dbContext.Usuarios.ToListAsync();
+            return await DbContext.Usuarios.ToListAsync();
         }
 
         // Obtener un usuario por ID
         public async Task<Usuario> ObtenerUsuarioPorIdAsync(int id)
         {
-            return await _dbContext.Usuarios.FirstOrDefaultAsync(u => u.Id == id);
+            return await DbContext.Usuarios.FirstOrDefaultAsync(u => u.Id == id);
         }
 
         // Actualizar un usuario existente usando UsuarioDTO
         public async Task<bool> ActualizarUsuarioAsync(int id, UsuarioDTO usuarioDTO)
         {
-            var usuarioExistente = await _dbContext.Usuarios.FindAsync(id);
+            var usuarioExistente = await DbContext.Usuarios.FindAsync(id);
 
             if (usuarioExistente == null)
             {
@@ -75,7 +75,7 @@ namespace EvaluacionProgramacion.Services
             }
 
             // Verificar que el RolId exista en la tabla Roles
-            var rolExistente = await _dbContext.Roles.FindAsync(usuarioDTO.RolId);
+            var rolExistente = await DbContext.Roles.FindAsync(usuarioDTO.RolId);
             if (rolExistente == null)
             {
                 throw new InvalidOperationException("El RolId no existe.");
@@ -87,8 +87,8 @@ namespace EvaluacionProgramacion.Services
             usuarioExistente.Password = usuarioDTO.Password;
             usuarioExistente.RolId = usuarioDTO.RolId;
 
-            _dbContext.Usuarios.Update(usuarioExistente);
-            await _dbContext.SaveChangesAsync();
+            DbContext.Usuarios.Update(usuarioExistente);
+            await DbContext.SaveChangesAsync();
 
             return true;
         }
@@ -96,15 +96,15 @@ namespace EvaluacionProgramacion.Services
         // Eliminar un usuario
         public async Task<bool> EliminarUsuarioAsync(int id)
         {
-            var usuario = await _dbContext.Usuarios.FindAsync(id);
+            var usuario = await DbContext.Usuarios.FindAsync(id);
 
             if (usuario == null)
             {
                 return false; 
             }
 
-            _dbContext.Usuarios.Remove(usuario);
-            await _dbContext.SaveChangesAsync();
+            DbContext.Usuarios.Remove(usuario);
+            await DbContext.SaveChangesAsync();
 
             return true;
         }
@@ -112,7 +112,7 @@ namespace EvaluacionProgramacion.Services
         // Obtener usuarios por Rol
         public async Task<List<Usuario>> ObtenerUsuariosPorRolAsync(int rolId)
         {
-            return await _dbContext.Usuarios
+            return await DbContext.Usuarios
                 .Where(u => u.RolId == rolId)
                 .ToListAsync();
         }

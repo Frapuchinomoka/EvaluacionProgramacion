@@ -11,25 +11,25 @@ namespace EvaluacionProgramacion.Services
 {
     public class TareaService
     {
-        private readonly EvContext _dbContext;
+        private readonly EvContext DbContext;
 
         public TareaService(EvContext dbContext)
         {
-            _dbContext = dbContext;
+            DbContext = dbContext;
         }
 
         // Crear una nueva tarea usando TareaDTO
         public async Task<Tarea> CrearTareaAsync(TareaDTO tareaDTO)
         {
             // Verificar que el proyecto exista
-            var proyectoExistente = await _dbContext.Proyectos.FindAsync(tareaDTO.ProyectoId);
+            var proyectoExistente = await DbContext.Proyectos.FindAsync(tareaDTO.ProyectoId);
             if (proyectoExistente == null)
             {
                 throw new InvalidOperationException("El proyecto no existe.");
             }
 
             // Verificar que el empleado exista
-            var empleadoExistente = await _dbContext.Usuarios.FindAsync(tareaDTO.UsuarioId);
+            var empleadoExistente = await DbContext.Usuarios.FindAsync(tareaDTO.UsuarioId);
             if (empleadoExistente == null)
             {
                 throw new InvalidOperationException("El empleado no existe.");
@@ -50,8 +50,8 @@ namespace EvaluacionProgramacion.Services
                 SetHerramientas = tareaDTO.SetHerramientas
             };
 
-            _dbContext.Tareas.Add(nuevaTarea);
-            await _dbContext.SaveChangesAsync();
+            DbContext.Tareas.Add(nuevaTarea);
+            await DbContext.SaveChangesAsync();
 
             return nuevaTarea;
         }
@@ -59,19 +59,19 @@ namespace EvaluacionProgramacion.Services
         // Obtener todas las tareas
         public async Task<List<Tarea>> ObtenerTareasAsync()
         {
-            return await _dbContext.Tareas.ToListAsync();
+            return await DbContext.Tareas.ToListAsync();
         }
 
         // Obtener una tarea por ID
         public async Task<Tarea> ObtenerTareaPorIdAsync(int id)
         {
-            return await _dbContext.Tareas.FirstOrDefaultAsync(t => t.Id == id);
+            return await DbContext.Tareas.FirstOrDefaultAsync(t => t.Id == id);
         }
 
         // Actualizar una tarea existente usando TareaDTO
         public async Task<bool> ActualizarTareaAsync(int id, TareaDTO tareaDTO)
         {
-            var tareaExistente = await _dbContext.Tareas.FindAsync(id);
+            var tareaExistente = await DbContext.Tareas.FindAsync(id);
 
             if (tareaExistente == null)
             {
@@ -79,14 +79,14 @@ namespace EvaluacionProgramacion.Services
             }
 
             // Verificar que el proyecto exista
-            var proyectoExistente = await _dbContext.Proyectos.FindAsync(tareaDTO.ProyectoId);
+            var proyectoExistente = await DbContext.Proyectos.FindAsync(tareaDTO.ProyectoId);
             if (proyectoExistente == null)
             {
                 throw new InvalidOperationException("El proyecto no existe.");
             }
 
             // Verificar que el empleado exista
-            var empleadoExistente = await _dbContext.Usuarios.FindAsync(tareaDTO.UsuarioId);
+            var empleadoExistente = await DbContext.Usuarios.FindAsync(tareaDTO.UsuarioId);
             if (empleadoExistente == null)
             {
                 throw new InvalidOperationException("El empleado no existe.");
@@ -102,8 +102,8 @@ namespace EvaluacionProgramacion.Services
             tareaExistente.UsuarioId = tareaDTO.UsuarioId;
             tareaExistente.SetHerramientas = tareaDTO.SetHerramientas;
 
-            _dbContext.Tareas.Update(tareaExistente);
-            await _dbContext.SaveChangesAsync();
+            DbContext.Tareas.Update(tareaExistente);
+            await DbContext.SaveChangesAsync();
 
             return true;
         }
@@ -111,15 +111,15 @@ namespace EvaluacionProgramacion.Services
         // Eliminar una tarea
         public async Task<bool> EliminarTareaAsync(int id)
         {
-            var tarea = await _dbContext.Tareas.FindAsync(id);
+            var tarea = await DbContext.Tareas.FindAsync(id);
 
             if (tarea == null)
             {
                 return false; 
             }
 
-            _dbContext.Tareas.Remove(tarea);
-            await _dbContext.SaveChangesAsync();
+            DbContext.Tareas.Remove(tarea);
+            await DbContext.SaveChangesAsync();
 
             return true;
         }
@@ -145,7 +145,7 @@ namespace EvaluacionProgramacion.Services
                     throw new InvalidOperationException($"ID de herramienta no válido: {id}");
                 }
 
-                var herramientaExistente = await _dbContext.Herramientas.FindAsync(herramientaId);
+                var herramientaExistente = await DbContext.Herramientas.FindAsync(herramientaId);
                 if (herramientaExistente == null)
                 {
                     throw new InvalidOperationException($"La herramienta con ID {herramientaId} no existe.");

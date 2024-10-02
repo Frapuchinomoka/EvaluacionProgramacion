@@ -12,12 +12,12 @@ namespace EvaluacionProgramacion.Controllers
         [Route("api/[controller]")]
         public class ProyectoController : Controller
         {
-            private readonly ProjectService _proyectoService;
+            private readonly ProjectoService _proyectoService;
 
             public ProyectoController(IServiceProvider serviceProvider)
             {
                 var context = serviceProvider.GetRequiredService<EvContext>();
-                _proyectoService = new ProjectService(context);
+                _proyectoService = new ProjectoService(context);
             }
 
             // Obtener todos los proyectos

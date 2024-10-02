@@ -10,11 +10,11 @@ namespace EvaluacionProgramacion.Services
 {
     public class HerramientaService
     {
-        private readonly EvContext _dbcontext;
+        private readonly EvContext DbContext;
 
         public HerramientaService(EvContext dbcontext)
         {
-            _dbcontext = dbcontext;
+            DbContext = dbcontext;
         }
 
         // Método para añadir una nueva herramienta
@@ -26,7 +26,7 @@ namespace EvaluacionProgramacion.Services
             }
 
             // Comprobar si la herramienta ya existe
-            var existingTool = await _dbcontext.Herramientas
+            var existingTool = await DbContext.Herramientas
                 .FirstOrDefaultAsync(h => h.Nombre.Equals(nuevaHerramienta.Nombre, StringComparison.OrdinalIgnoreCase));
 
             if (existingTool != null)
@@ -34,8 +34,8 @@ namespace EvaluacionProgramacion.Services
                 throw new InvalidOperationException("La herramienta ya se encuentra registrada.");
             }
 
-            await _dbcontext.Herramientas.AddAsync(nuevaHerramienta);
-            await _dbcontext.SaveChangesAsync();
+            await DbContext.Herramientas.AddAsync(nuevaHerramienta);
+            await DbContext.SaveChangesAsync();
 
             return nuevaHerramienta;
         }
@@ -43,19 +43,19 @@ namespace EvaluacionProgramacion.Services
         // Método para obtener la lista de herramientas
         public async Task<List<Herramienta>> GetAllHerramientasAsync()
         {
-            return await _dbcontext.Herramientas.ToListAsync();
+            return await DbContext.Herramientas.ToListAsync();
         }
 
         // Método para obtener una herramienta por su ID
         public async Task<Herramienta> GetHerramientaByIdAsync(int herramientaId)
         {
-            return await _dbcontext.Herramientas.FindAsync(herramientaId);
+            return await DbContext.Herramientas.FindAsync(herramientaId);
         }
 
         // Método para actualizar una herramienta existente
         public async Task<bool> UpdateHerramientaAsync(int herramientaId, Herramienta herramientaActualizada)
         {
-            var herramientaEnDb = await _dbcontext.Herramientas.FindAsync(herramientaId);
+            var herramientaEnDb = await DbContext.Herramientas.FindAsync(herramientaId);
 
             if (herramientaEnDb == null)
             {
@@ -70,8 +70,8 @@ namespace EvaluacionProgramacion.Services
             // Modificar el nombre de la herramienta
             herramientaEnDb.Nombre = herramientaActualizada.Nombre;
 
-            _dbcontext.Herramientas.Update(herramientaEnDb);
-            await _dbcontext.SaveChangesAsync();
+            DbContext.Herramientas.Update(herramientaEnDb);
+            await DbContext.SaveChangesAsync();
 
             return true;
         }
@@ -79,15 +79,15 @@ namespace EvaluacionProgramacion.Services
         // Método para eliminar una herramienta
         public async Task<bool> DeleteHerramientaAsync(int herramientaId)
         {
-            var herramientaToDelete = await _dbcontext.Herramientas.FindAsync(herramientaId);
+            var herramientaToDelete = await DbContext.Herramientas.FindAsync(herramientaId);
 
             if (herramientaToDelete == null)
             {
                 return false; // La herramienta no se encuentra
             }
 
-            _dbcontext.Herramientas.Remove(herramientaToDelete);
-            await _dbcontext.SaveChangesAsync();
+            DbContext.Herramientas.Remove(herramientaToDelete);
+            await DbContext.SaveChangesAsync();
 
             return true;
         }
