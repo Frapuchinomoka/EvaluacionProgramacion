@@ -7,7 +7,7 @@ using EvaluacionProgramacion.DTOs;
 using EvaluacionProgramacion.Models;
 using EvaluacionProgramacion.Services.Users.Data;
 
-namespace Practico2.Services
+namespace EvaluacionProgramacion.Services
 {
     public class TareaService
     {
