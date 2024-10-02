@@ -6,8 +6,7 @@ using EvaluacionProgramacion.Services;
 
 namespace EvaluacionProgramacion.Controllers
 {
-    public class TareaControllers
-    {
+    
         [ApiController]
         [Route("api/[controller]")]
         public class TareaController : Controller
@@ -138,4 +137,3 @@ namespace EvaluacionProgramacion.Controllers
             }
         }
     }
-}

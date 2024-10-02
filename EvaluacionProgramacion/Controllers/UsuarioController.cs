@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EvaluacionProgramacion.Controllers
 {
-    public class UsuarioControllers
-    {
+    
         [ApiController]
         [Route("api/[controller]")]
         public class UsuarioController : Controller
@@ -117,4 +116,4 @@ namespace EvaluacionProgramacion.Controllers
             }
         }
     }
-}
+

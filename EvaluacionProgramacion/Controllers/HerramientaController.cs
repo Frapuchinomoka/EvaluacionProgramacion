@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EvaluacionProgramacion.Controllers
 {
-    public class HerramientaControllers
-    {
+    
         [ApiController]
         [Route("api/[controller]")]
+
         public class HerramientaController : Controller
         {
             private readonly HerramientaService _herramientaService;
@@ -125,4 +125,4 @@ namespace EvaluacionProgramacion.Controllers
             }
         }
     }
-}
+

@@ -6,15 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EvaluacionProgramacion.Controllers
 {
-    public class ProyectoControllers
-    {
+    
         [ApiController]
         [Route("api/[controller]")]
-        public class ProyectoController : Controller
+        public class ProyectosController : Controller
         {
             private readonly ProjectoService _proyectoService;
 
-            public ProyectoController(IServiceProvider serviceProvider)
+            public ProyectosController(IServiceProvider serviceProvider)
             {
                 var context = serviceProvider.GetRequiredService<EvContext>();
                 _proyectoService = new ProjectoService(context);
@@ -159,4 +158,4 @@ namespace EvaluacionProgramacion.Controllers
             }
         }
     }
-}
+
